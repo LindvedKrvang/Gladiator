@@ -44,10 +44,6 @@ public class FrostboltController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Knight"))
-        {
-            Debug.Log("Frostbolt hit Knight");
-            Destroy(gameObject);
-        }
+        
     }
 }

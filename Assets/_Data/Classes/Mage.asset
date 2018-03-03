@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cb3f64ddd27bc943b451d57971890d5, type: 3}
+  m_Name: Mage
+  m_EditorClassIdentifier: 
+  AnimatorController: {fileID: 22100000, guid: b305c69d0865e3c4ca724a1f2adcbfac, type: 2}
+  Health: 50
+  WalkSpeed: 2
+  RunSpeed: 5
+  Frostbolt: {fileID: 1907973393798554, guid: fb788ac59d24df3419a9971ad1bfe91f, type: 2}

@@ -10,13 +10,15 @@ public class PlayerController : MonoBehaviour
     private readonly string ANIM_DIE = "Dead";
     private readonly string ANIM_ATTACK = "Attack";
 
-    public float Speed = 2f;
-    public int Health = 100;
+    public Character CharacterDetails;
+   
 
     private Rigidbody2D _rb;
     private Animator _animator;
     private SpriteRenderer _sr;
 
+    private float _speed;
+    private int _health;
     private Vector2 _movementDirection;
     private bool _canMove;
    
@@ -27,12 +29,16 @@ public class PlayerController : MonoBehaviour
 	    _animator = GetComponent<Animator>();
 	    _sr = GetComponent<SpriteRenderer>();
 
+	    _animator.runtimeAnimatorController = CharacterDetails.AnimatorController;
+
+	    //_speed = CharacterDetails.WalkSpeed;
+	    _health = CharacterDetails.Health;
 	    _canMove = true;
 	}
 
     void FixedUpdate ()
     {
-        _rb.velocity = _movementDirection * Speed;
+        _rb.velocity = _movementDirection * _speed;
     }
 
     void Update()
@@ -43,7 +49,7 @@ public class PlayerController : MonoBehaviour
         else
             _movementDirection = Vector2.zero;
 
-        Speed = Input.GetKey(KeyCode.LeftShift) ? 5 : 2;
+        _speed = Input.GetKey(KeyCode.LeftShift) ? CharacterDetails.RunSpeed : CharacterDetails.WalkSpeed;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -89,5 +95,10 @@ public class PlayerController : MonoBehaviour
     public void OnAttackEnd()
     {
         _canMove = true;
+    }
+
+    public void Attack()
+    {
+        CharacterDetails.Attack(!_sr.flipX, transform.position);
     }
 }
