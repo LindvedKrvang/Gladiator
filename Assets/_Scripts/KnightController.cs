@@ -7,9 +7,11 @@ public class KnightController : MonoBehaviour
     private readonly string INPUT_HORIZONTAL = "Horizontal2";
     private readonly string INPUT_VERTICAL = "Vertical2";
     private readonly string SPEED_ATTRIBUTE = "Speed";
+    private readonly string ANIM_DIE = "Dead";
     private readonly string ANIM_ATTACK = "Attack";
 
     public float Speed = 2f;
+    public int Health = 100;
 
     private Rigidbody2D _rb;
     private Animator _animator;
@@ -49,7 +51,13 @@ public class KnightController : MonoBehaviour
             _movementDirection = Vector2.zero;
             _canMove = false;
         }
-            
+
+        //This is only for testing "Die" animation. TODO: Remove.
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            _animator.SetTrigger(ANIM_DIE);
+            _canMove = false;
+        }
 
         ChangeDirection();
         ChangeAnimation();
@@ -69,6 +77,13 @@ public class KnightController : MonoBehaviour
     private void ChangeAnimation()
     {
         _animator.SetFloat(SPEED_ATTRIBUTE, _rb.velocity.magnitude);
+        
+    }
+
+    private void Die()
+    {
+        _animator.SetTrigger(ANIM_DIE);
+        _canMove = false;
     }
 
     public void OnAttackEnd()
