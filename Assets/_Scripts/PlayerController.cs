@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KnightController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     private readonly string INPUT_HORIZONTAL = "Horizontal2";
     private readonly string INPUT_VERTICAL = "Vertical2";
