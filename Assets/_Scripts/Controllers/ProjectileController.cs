@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FrostboltController : MonoBehaviour
-{
+public class ProjectileController : MonoBehaviour {
 
     private Rigidbody2D _rb;
 
@@ -11,13 +10,13 @@ public class FrostboltController : MonoBehaviour
     private Vector2 _direction;
     private bool _isMovingRight;
 
-	// Use this for initialization
-	void Start ()
-	{
-	    _rb = GetComponent<Rigidbody2D>();
-	    _speed = 10f;
-	    
-	}
+    // Use this for initialization
+    void Start()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+        _speed = 10f;
+
+    }
 
     public void SetDirection(bool isDirectionRight)
     {
@@ -28,6 +27,7 @@ public class FrostboltController : MonoBehaviour
         else
         {
             _direction = new Vector2(-1, 0);
+            GetComponent<SpriteRenderer>().flipX = true;
         }
     }
 
@@ -38,12 +38,12 @@ public class FrostboltController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.Log("Frostbolt collided");
+        Debug.Log("Projectile collided");
         Destroy(gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        
+
     }
 }
