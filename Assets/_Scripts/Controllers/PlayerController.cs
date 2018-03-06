@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     private readonly string ANIM_ATTACK = "Attack";
 
     public Character CharacterDetails;
-   
 
     private Rigidbody2D _rb;
     private Animator _animator;

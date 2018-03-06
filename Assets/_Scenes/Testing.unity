@@ -71302,7 +71302,7 @@ Prefab:
         type: 2}
       propertyPath: CharacterDetails
       value: 
-      objectReference: {fileID: 11400000, guid: ab60b44a7ea37cd4fb3370b8b6a65876,
+      objectReference: {fileID: 11400000, guid: de43b4aae51c822409c19c2eb33b6698,
         type: 2}
     - target: {fileID: 1527109024691020, guid: 7ac0e3b6bdbe80c45b676a65c40ca637, type: 2}
       propertyPath: m_IsActive
