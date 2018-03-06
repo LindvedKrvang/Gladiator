@@ -56,5 +56,9 @@ public class ProjectileController : MonoBehaviour {
         {
             particle.FlipParticle();
         }
+        var collider = GetComponent<CapsuleCollider2D>();
+        var colPosition = collider.offset;
+        colPosition.x += 2;
+        collider.offset = colPosition;
     }
 }
