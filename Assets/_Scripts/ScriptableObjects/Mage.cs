@@ -8,15 +8,20 @@ public class Mage : Character
 
     private readonly float ADJUSTED_Y = 0.2f;
 
+
+    //public GameObject Frostbolt;
+
     [Space]
     [Header("Mage Details")]
-    public GameObject Frostbolt;
+    public Ability NormalAbility;
+
+    void OnEnable()
+    {
+        NormalAbility.InitializeAbility(ADJUSTED_Y);
+    }
     
     public override void Attack(bool isDirectionRight, Vector2 position)
     {
-        position.y += ADJUSTED_Y;
-        var frostbolt = Instantiate(Frostbolt, position, Quaternion.identity);
-        var fbController = frostbolt.GetComponent<ProjectileController>();
-        fbController.SetDirection(isDirectionRight);
+        NormalAbility.UseAbility(position, isDirectionRight);
     }
 }

@@ -15,4 +15,4 @@ MonoBehaviour:
   Health: 50
   WalkSpeed: 2
   RunSpeed: 5
-  Frostbolt: {fileID: 1946840113213624, guid: d68cb35de366dbc41a9bb10dfdc64699, type: 2}
+  NormalAbility: {fileID: 11400000, guid: b834f0c4a92281a478976935d6abe470, type: 2}

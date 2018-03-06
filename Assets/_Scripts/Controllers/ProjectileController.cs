@@ -27,8 +27,6 @@ public class ProjectileController : MonoBehaviour {
         else
         {
             _direction = new Vector2(-1, 0);
-            GetComponent<SpriteRenderer>().flipX = true;
-            FlipParticles();
         }
     }
 
@@ -46,19 +44,5 @@ public class ProjectileController : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D col)
     {
 
-    }
-
-    private void FlipParticles()
-    {
-        var particles = GetComponentsInChildren<ParticleLayerSorter>();
-        if (particles == null) return;
-        foreach (var particle in particles)
-        {
-            particle.FlipParticle();
-        }
-        var collider = GetComponent<CapsuleCollider2D>();
-        var colPosition = collider.offset;
-        colPosition.x += 2;
-        collider.offset = colPosition;
     }
 }

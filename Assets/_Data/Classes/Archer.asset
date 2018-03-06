@@ -15,4 +15,4 @@ MonoBehaviour:
   Health: 75
   WalkSpeed: 2
   RunSpeed: 4
-  Arrow: {fileID: 1845770910111540, guid: f52f1031fc780dc44a7968bfd8278912, type: 2}
+  NormalAbility: {fileID: 11400000, guid: 9de91708a8b224245aa3eb6fc6a568d4, type: 2}
