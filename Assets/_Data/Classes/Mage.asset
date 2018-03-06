@@ -15,4 +15,4 @@ MonoBehaviour:
   Health: 50
   WalkSpeed: 2
   RunSpeed: 5
-  NormalAbility: {fileID: 11400000, guid: b834f0c4a92281a478976935d6abe470, type: 2}
+  NormalAbility: {fileID: 11400000, guid: f08fec098cfe0c649b4dc544be24b197, type: 2}

@@ -13,4 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 0
   Sound: {fileID: 0}
-  ProjectileObject: {fileID: 0}
+  ProjectileObject: {fileID: 1946840113213624, guid: d68cb35de366dbc41a9bb10dfdc64699,
+    type: 2}
