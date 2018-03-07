@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(SpriteRenderer))]
 public class PlayerController : MonoBehaviour
 {
     private readonly string INPUT_HORIZONTAL = "Horizontal2";
@@ -27,14 +27,18 @@ public class PlayerController : MonoBehaviour
 	{
 	    _rb = GetComponent<Rigidbody2D>();
 	    _animator = GetComponent<Animator>();
-	    _sr = GetComponent<SpriteRenderer>();
+        _sr = GetComponent<SpriteRenderer>();
 
 	    _animator.runtimeAnimatorController = CharacterDetails.AnimatorController;
-
-	    //_speed = CharacterDetails.WalkSpeed;
 	    _health = CharacterDetails.Health;
-	    _canMove = true;
+        _canMove = true;
 	}
+
+    public void SetCharacterDetails(Character character)
+    {
+        CharacterDetails = character;
+    }
+
 
     void FixedUpdate ()
     {
