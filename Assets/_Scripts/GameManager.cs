@@ -14,9 +14,9 @@ public class GameManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	    var data = FindObjectOfType<PersistentDataController>();
-	    _selectedCharacter = data.SelectedCharacter;
-        InstantiatePlayer();
+	    //var data = FindObjectOfType<PersistentDataController>();
+	    //_selectedCharacter = data.SelectedCharacter;
+     //   InstantiatePlayer();
 	}
 
     private void InstantiatePlayer()

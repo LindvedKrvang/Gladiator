@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(SpriteRenderer))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     private readonly string INPUT_HORIZONTAL = "Horizontal2";
     private readonly string INPUT_VERTICAL = "Vertical2";
@@ -42,11 +43,15 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate ()
     {
+        if (!isLocalPlayer) return;
+
         _rb.velocity = _movementDirection * _speed;
     }
 
     void Update()
     {
+        if (!isLocalPlayer) return;
+
         if (_canMove)
             _movementDirection = new Vector2(Input.GetAxisRaw(INPUT_HORIZONTAL), Input.GetAxisRaw(INPUT_VERTICAL))
                 .normalized;
@@ -60,6 +65,7 @@ public class PlayerController : MonoBehaviour
             _animator.SetTrigger(ANIM_ATTACK);
             _movementDirection = Vector2.zero;
             _canMove = false;
+            CmdTestAnimation();
         }
 
         //This is only for testing "Die" animation. TODO: Remove.
@@ -88,6 +94,12 @@ public class PlayerController : MonoBehaviour
     {
         _animator.SetFloat(SPEED_ATTRIBUTE, _rb.velocity.magnitude);
         
+    }
+
+    [Command]
+    public void CmdTestAnimation()
+    {
+        _animator.Play("Die");
     }
 
     private void Die()
