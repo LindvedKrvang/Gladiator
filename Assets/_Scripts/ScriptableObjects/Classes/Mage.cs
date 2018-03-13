@@ -20,8 +20,8 @@ public class Mage : Character
         NormalAbility.InitializeAbility(ADJUSTED_Y);
     }
     
-    public override void Attack(bool isDirectionRight, Vector2 position)
+    public override GameObject Attack(bool isDirectionRight, Vector2 position)
     {
-        NormalAbility.UseAbility(position, isDirectionRight);
+        return NormalAbility.UseAbility(position, isDirectionRight);
     }
 }

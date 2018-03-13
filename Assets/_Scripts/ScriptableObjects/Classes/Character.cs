@@ -14,5 +14,5 @@ public abstract class Character : ScriptableObject
     
 
 
-    public abstract void Attack(bool isDirectionRight, Vector2 position);
+    public abstract GameObject Attack(bool isDirectionRight, Vector2 position);
 }

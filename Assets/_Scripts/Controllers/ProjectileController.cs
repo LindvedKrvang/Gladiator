@@ -1,8 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class ProjectileController : MonoBehaviour {
+[RequireComponent(typeof(NetworkIdentity), typeof(NetworkTransform))]
+public class ProjectileController : MonoBehaviour
+{
+
+    private static string TAG_PLAYER = "Player";
 
     private Rigidbody2D _rb;
 
@@ -37,12 +42,16 @@ public class ProjectileController : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        
         Debug.Log("Projectile collided");
         Destroy(gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-
+        if (col.gameObject.CompareTag(TAG_PLAYER))
+        {
+            Debug.Log("Hit a Player!");
+        }
     }
 }

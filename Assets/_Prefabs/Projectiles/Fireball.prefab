@@ -167,6 +167,8 @@ GameObject:
   - component: {fileID: 70554196228701174}
   - component: {fileID: 114863080479323324}
   - component: {fileID: 50760446099505986}
+  - component: {fileID: 114735119871597866}
+  - component: {fileID: 114232972471316998}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Untagged
@@ -331,8 +333,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.80417436, y: 0.00000081112086}
-  m_Size: {x: 1.1964927, y: 0.60804194}
+  m_Offset: {x: -0.38772473, y: 0.01971433}
+  m_Size: {x: 0.36359447, y: 0.36359447}
   m_Direction: 1
 --- !u!114 &114082004531093668
 MonoBehaviour:
@@ -367,6 +369,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c655aec39e6f384f84d6e8b237704bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114232972471316998
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1946840113213624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 2
+  m_SendInterval: 0.033333335
+  m_SyncRotationAxis: 3
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114274686620670258
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -400,6 +423,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c655aec39e6f384f84d6e8b237704bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114735119871597866
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1946840113213624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 214
+    i1: 140
+    i2: 179
+    i3: 93
+    i4: 227
+    i5: 102
+    i6: 219
+    i7: 196
+    i8: 26
+    i9: 155
+    i10: 177
+    i11: 13
+    i12: 253
+    i13: 198
+    i14: 70
+    i15: 153
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114863080479323324
 MonoBehaviour:
   m_ObjectHideFlags: 1

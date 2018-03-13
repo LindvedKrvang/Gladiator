@@ -5,8 +5,9 @@ using UnityEngine;
 [CreateAssetMenu (menuName = "Characters/Knight")]
 public class Knight : Character {
 
-    public override void Attack(bool isDirectionRight, Vector2 position)
+    public override GameObject Attack(bool isDirectionRight, Vector2 position)
     {
         //TODO: Implement
+        return null;
     }
 }

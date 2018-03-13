@@ -9,5 +9,5 @@ public abstract class Ability : ScriptableObject
     public AudioClip Sound;
 
     public abstract void InitializeAbility(float adjustedY);
-    public abstract void UseAbility(Vector2 position, bool facingRight);
+    public abstract GameObject UseAbility(Vector2 position, bool facingRight);
 }

@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 [CreateAssetMenu(menuName = "Abilities/Projectile")]
 public class Projectile : Ability {
 
     private float _adjustedY;
+    private float _adjustedX;
 
     [Space]
     [Header("Projectile Specific")]
@@ -14,19 +16,27 @@ public class Projectile : Ability {
     public override void InitializeAbility(float adjustedY)
     {
         _adjustedY = adjustedY;
+        _adjustedX = 0.4f;
     }
 
-    public override void UseAbility(Vector2 position, bool facingRight)
+    public override GameObject UseAbility(Vector2 position, bool facingRight)
     {
         var rot = SetRotation(facingRight);
 
         position.y += _adjustedY;
-        
-        var frostbolt = Instantiate(ProjectileObject, position, Quaternion.Euler(rot));
 
-        var fbController = frostbolt.GetComponent<ProjectileController>();
-        fbController.SetDirection(facingRight);
+        //TODO RKL: Refactor
+        if (facingRight)
+            position.x += _adjustedX;
+        else
+            position.x -= _adjustedX;
         
+        var projectile = Instantiate(ProjectileObject, position, Quaternion.Euler(rot));
+
+        var fbController = projectile.GetComponent<ProjectileController>();
+        fbController.SetDirection(facingRight);
+
+        return projectile;
     }
 
     private Vector3 SetRotation(bool facingRight)

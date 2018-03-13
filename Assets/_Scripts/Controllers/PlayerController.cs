@@ -131,8 +131,13 @@ public class PlayerController : NetworkBehaviour
         _canMove = true;
     }
 
-    public void Attack()
+    [Command]
+    public void CmdAttack()
     {
-        CharacterDetails.Attack(!_sr.flipX, transform.position);
+        if (!isServer)
+            return;
+
+        var ability = CharacterDetails.Attack(!_sr.flipX, transform.position);
+        NetworkServer.Spawn(ability);
     }
 }
