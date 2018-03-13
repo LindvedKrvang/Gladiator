@@ -35,6 +35,7 @@ public class Projectile : Ability {
 
         var fbController = projectile.GetComponent<ProjectileController>();
         fbController.SetDirection(facingRight);
+        fbController.SetDamage(Damage);
 
         return projectile;
     }

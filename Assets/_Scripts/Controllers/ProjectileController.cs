@@ -14,6 +14,7 @@ public class ProjectileController : MonoBehaviour
     private float _speed;
     private Vector2 _direction;
     private bool _isMovingRight;
+    private int _damage;
 
     // Use this for initialization
     void Start()
@@ -51,7 +52,15 @@ public class ProjectileController : MonoBehaviour
     {
         if (col.gameObject.CompareTag(TAG_PLAYER))
         {
+            var controller = col.gameObject.GetComponent<PlayerController>();
+            controller.TakeDamage(_damage);
             Debug.Log("Hit a Player!");
+            Destroy(gameObject);
         }
+    }
+
+    public void SetDamage(int damage)
+    {
+        _damage = damage;
     }
 }

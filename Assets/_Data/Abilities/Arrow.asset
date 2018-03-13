@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c82d00db5933b414698bd53c351f8ace, type: 3}
   m_Name: Arrow
   m_EditorClassIdentifier: 
-  Damage: 0
+  Damage: 10
   Sound: {fileID: 0}
   ProjectileObject: {fileID: 1845770910111540, guid: f52f1031fc780dc44a7968bfd8278912,
     type: 2}

@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c82d00db5933b414698bd53c351f8ace, type: 3}
   m_Name: Frostbolt
   m_EditorClassIdentifier: 
-  Damage: 0
+  Damage: 15
   Sound: {fileID: 0}
   ProjectileObject: {fileID: 1907973393798554, guid: fb788ac59d24df3419a9971ad1bfe91f,
     type: 2}

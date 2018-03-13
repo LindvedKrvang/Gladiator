@@ -8,23 +8,28 @@ using UnityEngine.Networking;
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(SpriteRenderer))]
 public class PlayerController : NetworkBehaviour
 {
-    private readonly string INPUT_HORIZONTAL = "Horizontal2";
-    private readonly string INPUT_VERTICAL = "Vertical2";
+    private readonly string INPUT_HORIZONTAL = "Horizontal";
+    private readonly string INPUT_VERTICAL = "Vertical";
     private readonly string SPEED_ATTRIBUTE = "Speed";
     private readonly string ANIM_DIE = "Dead";
     private readonly string ANIM_ATTACK = "Attack";
 
     public Character CharacterDetails;
+    public RectTransform HealthBar;
+    public RectTransform HealthBarBAckground;
 
     [SyncVar(hook = "OnDirectionChanged")]
     private bool _directionIsLeft;
+
+    [SyncVar(hook = "OnChangeHealth")]
+    public int _health;
 
     private Rigidbody2D _rb;
     private Animator _animator;
     private SpriteRenderer _sr;
 
     private float _speed;
-    private int _health;
+    
     private Vector2 _movementDirection;
     private bool _canMove;
 
@@ -44,6 +49,7 @@ public class PlayerController : NetworkBehaviour
         _animator.runtimeAnimatorController = CharacterDetails.AnimatorController;
 	    _health = CharacterDetails.Health;
         _canMove = true;
+        HealthBarBAckground.sizeDelta = new Vector2(_health, HealthBarBAckground.sizeDelta.y);
 	}
 
     public void SetCharacterDetails(Character character)
@@ -139,5 +145,21 @@ public class PlayerController : NetworkBehaviour
 
         var ability = CharacterDetails.Attack(!_sr.flipX, transform.position);
         NetworkServer.Spawn(ability);
+    }
+
+    private void OnChangeHealth(int health)
+    {
+        HealthBar.sizeDelta = new Vector2(health, HealthBar.sizeDelta.y);
+    }
+
+    public void TakeDamage(int amount)
+    {
+        if (!isServer) return;
+
+        _health -= amount;
+        if (_health <= 0)
+        {
+            //TODO RKL: Implement death
+        }
     }
 }
