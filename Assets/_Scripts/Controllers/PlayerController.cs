@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -26,15 +27,21 @@ public class PlayerController : NetworkBehaviour
     private int _health;
     private Vector2 _movementDirection;
     private bool _canMove;
-   
+
+    public override void OnStartLocalPlayer()
+    {
+        GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>().Follow = transform;
+        GetComponent<SpriteRenderer>().material.color = Color.blue;
+    }
+
     // Use this for initialization
     void Start ()
 	{
 	    _rb = GetComponent<Rigidbody2D>();
 	    _animator = GetComponent<Animator>();
-        _sr = GetComponent<SpriteRenderer>();
+	    _sr = GetComponent<SpriteRenderer>();
 
-	    _animator.runtimeAnimatorController = CharacterDetails.AnimatorController;
+        _animator.runtimeAnimatorController = CharacterDetails.AnimatorController;
 	    _health = CharacterDetails.Health;
         _canMove = true;
 	}
