@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -13,6 +14,9 @@ public class PlayerController : NetworkBehaviour
     private readonly string ANIM_ATTACK = "Attack";
 
     public Character CharacterDetails;
+
+    [SyncVar(hook = "OnDirectionChanged")]
+    private bool _directionIsLeft;
 
     private Rigidbody2D _rb;
     private Animator _animator;
@@ -65,7 +69,6 @@ public class PlayerController : NetworkBehaviour
             _animator.SetTrigger(ANIM_ATTACK);
             _movementDirection = Vector2.zero;
             _canMove = false;
-            CmdTestAnimation();
         }
 
         //This is only for testing "Die" animation. TODO: Remove.
@@ -79,27 +82,35 @@ public class PlayerController : NetworkBehaviour
         ChangeAnimation();
     }
 
+    
     private void ChangeDirection()
     {
+       
         if (_movementDirection.x < 0)
         {
-            _sr.flipX = true;
+            CmdChangeDirectionOnServer(true);
         } else if (_movementDirection.x > 0)
         {
-            _sr.flipX = false;
+            CmdChangeDirectionOnServer(false);
         }
+    }
+
+    [Command]
+    private void CmdChangeDirectionOnServer(bool directionIsLeft)
+    {
+        _directionIsLeft = directionIsLeft;
+    }
+
+    
+    private void OnDirectionChanged(bool directionIsLeft)
+    {
+        _sr.flipX = directionIsLeft;
     }
 
     private void ChangeAnimation()
     {
         _animator.SetFloat(SPEED_ATTRIBUTE, _rb.velocity.magnitude);
         
-    }
-
-    [Command]
-    public void CmdTestAnimation()
-    {
-        _animator.Play("Die");
     }
 
     private void Die()

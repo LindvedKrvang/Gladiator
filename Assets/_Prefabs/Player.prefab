@@ -166,7 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac27ad9a8108bc04097f83fc45e303c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterDetails: {fileID: 11400000, guid: ab60b44a7ea37cd4fb3370b8b6a65876, type: 2}
+  CharacterDetails: {fileID: 11400000, guid: b4cd019666339c3488b8bd0290064841, type: 2}
+  DirectionIsLeft: 0
 --- !u!114 &114894871844391862
 MonoBehaviour:
   m_ObjectHideFlags: 1
