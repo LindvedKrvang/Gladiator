@@ -43,8 +43,6 @@ public class ProjectileController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        
-        Debug.Log("Projectile collided");
         Destroy(gameObject);
     }
 
@@ -54,7 +52,6 @@ public class ProjectileController : MonoBehaviour
         {
             var controller = col.gameObject.GetComponent<PlayerController>();
             controller.TakeDamage(_damage);
-            Debug.Log("Hit a Player!");
             Destroy(gameObject);
         }
     }
