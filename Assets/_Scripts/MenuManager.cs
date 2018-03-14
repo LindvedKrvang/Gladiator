@@ -15,9 +15,9 @@ public class MenuManager : MonoBehaviour
 	    _persistentData = FindObjectOfType<PersistentDataController>();
 	}
 
-    public void SelectCharacter(Character character)
+    public void SelectCharacter(int characterIndex)
     {
-        _persistentData.SelectedCharacter = character;
+        _persistentData.CharacterIndex = characterIndex;
     }
 
     public void StartGame()

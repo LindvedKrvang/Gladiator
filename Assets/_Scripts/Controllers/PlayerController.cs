@@ -14,8 +14,12 @@ public class PlayerController : NetworkBehaviour
     private const string ANIM_DIE = "Dead";
     private const string ANIM_ATTACK = "Attack";
     private const string ANIM_IDLE = "Idle";
+    private const string CINEMACHINE = "CM vcam1";
+
+
 
     public Character CharacterDetails;
+
     public RectTransform HealthBar;
     public RectTransform HealthBarBackground;
 
@@ -24,6 +28,8 @@ public class PlayerController : NetworkBehaviour
 
     [SyncVar(hook = "OnChangeHealth")]
     private int _health;
+
+    //[SyncVar(hook = "RpcOnChangeCharacterIndex")] public int _characterIndex;
 
     private Rigidbody2D _rb;
     private Animator _animator;
@@ -39,16 +45,32 @@ public class PlayerController : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
-        GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>().Follow = transform;
+        GameObject.Find(CINEMACHINE).GetComponent<CinemachineVirtualCamera>().Follow = transform;
         GetComponent<SpriteRenderer>().material.color = Color.blue;
     }
 
     // Use this for initialization
     void Start ()
     {
-	    _rb = GetComponent<Rigidbody2D>();
-	    _animator = GetComponent<Animator>();
-	    _sr = GetComponent<SpriteRenderer>();
+        _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+        _sr = GetComponent<SpriteRenderer>();
+
+        if (isLocalPlayer)
+        {
+            _spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+            //var data = FindObjectOfType<PersistentDataController>();
+            //if (data != null)
+            //{
+            //    _characterIndex = data.CharacterIndex;
+            //}
+
+            //var characterManager = FindObjectOfType<CharacterManager>();
+            //if (characterManager != null)
+            //{
+            //    CharacterDetails = characterManager.GetCharacter(_characterIndex);
+            //}
+        }
 
         _animator.runtimeAnimatorController = CharacterDetails.AnimatorController;
 	    _health = CharacterDetails.Health;
@@ -56,8 +78,20 @@ public class PlayerController : NetworkBehaviour
         _isDead = false;
         HealthBarBackground.sizeDelta = new Vector2(_health, HealthBarBackground.sizeDelta.y);
 
-        if(isLocalPlayer)
-            _spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+        
+    }
+
+    [ClientRpc]
+    private void RpcOnChangeCharacterIndex(int characterIndex)
+    {
+        var characterManager = FindObjectOfType<CharacterManager>();
+        if (characterManager != null)
+        {
+            CharacterDetails = characterManager.GetCharacter(characterIndex);
+            var hello = CharacterDetails.AnimatorController;
+            Debug.Log("Hello from the OnChangeCharacterIndex: " + hello.ToString());
+            _animator.runtimeAnimatorController = hello;
+        }
     }
 
     public void SetCharacterDetails(Character character)
@@ -69,8 +103,8 @@ public class PlayerController : NetworkBehaviour
     void FixedUpdate ()
     {
         if (!isLocalPlayer) return;
-
-        _rb.velocity = _movementDirection * _speed;
+        if(_rb != null)
+            _rb.velocity = _movementDirection * _speed;
     }
 
     void Update()
@@ -130,7 +164,8 @@ public class PlayerController : NetworkBehaviour
 
     private void ChangeAnimation()
     {
-        _animator.SetFloat(SPEED_ATTRIBUTE, _rb.velocity.magnitude);
+        if(_animator != null)
+            _animator.SetFloat(SPEED_ATTRIBUTE, _rb.velocity.magnitude);
         
     }
 
@@ -152,7 +187,11 @@ public class PlayerController : NetworkBehaviour
             return;
 
         var ability = CharacterDetails.Attack(!_sr.flipX, transform.position);
-        NetworkServer.Spawn(ability);
+        if (ability != null)
+        {
+            NetworkServer.Spawn(ability);
+        }
+        
     }
 
     private void OnChangeHealth(int health)

@@ -47,6 +47,9 @@ TagManager:
   - name: Obstacles
     uniqueID: 3576409273
     locked: 0
+  - name: Decor
+    uniqueID: 107198675
+    locked: 0
   - name: Middleground
     uniqueID: 3287771995
     locked: 0

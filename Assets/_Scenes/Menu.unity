@@ -191,12 +191,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1102379531}
         m_MethodName: SelectCharacter
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: de43b4aae51c822409c19c2eb33b6698,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: Character, Assembly-CSharp
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: Mage
           m_BoolArgument: 0
@@ -502,12 +501,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1102379531}
         m_MethodName: SelectCharacter
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: b4cd019666339c3488b8bd0290064841,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: Character, Assembly-CSharp
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: Archer
           m_BoolArgument: 0
@@ -687,11 +685,10 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1102379531}
         m_MethodName: SelectCharacter
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: ab60b44a7ea37cd4fb3370b8b6a65876,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: Character, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Knight
@@ -995,9 +992,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5cfe91b721972146811d4ffee7218ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Knight: {fileID: 0}
-  Mage: {fileID: 0}
-  Archer: {fileID: 0}
 --- !u!4 &1102379532
 Transform:
   m_ObjectHideFlags: 0
