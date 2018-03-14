@@ -8,21 +8,22 @@ using UnityEngine.Networking;
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(SpriteRenderer))]
 public class PlayerController : NetworkBehaviour
 {
-    private readonly string INPUT_HORIZONTAL = "Horizontal";
-    private readonly string INPUT_VERTICAL = "Vertical";
-    private readonly string SPEED_ATTRIBUTE = "Speed";
-    private readonly string ANIM_DIE = "Dead";
-    private readonly string ANIM_ATTACK = "Attack";
+    private const string INPUT_HORIZONTAL = "Horizontal";
+    private const string INPUT_VERTICAL = "Vertical";
+    private const string SPEED_ATTRIBUTE = "Speed";
+    private const string ANIM_DIE = "Dead";
+    private const string ANIM_ATTACK = "Attack";
+    private const string ANIM_IDLE = "Idle";
 
     public Character CharacterDetails;
     public RectTransform HealthBar;
-    public RectTransform HealthBarBAckground;
+    public RectTransform HealthBarBackground;
 
     [SyncVar(hook = "OnDirectionChanged")]
     private bool _directionIsLeft;
 
     [SyncVar(hook = "OnChangeHealth")]
-    public int _health;
+    private int _health;
 
     private Rigidbody2D _rb;
     private Animator _animator;
@@ -32,6 +33,9 @@ public class PlayerController : NetworkBehaviour
     
     private Vector2 _movementDirection;
     private bool _canMove;
+    private bool _isDead;
+
+    private NetworkStartPosition[] _spawnPoints;
 
     public override void OnStartLocalPlayer()
     {
@@ -41,7 +45,7 @@ public class PlayerController : NetworkBehaviour
 
     // Use this for initialization
     void Start ()
-	{
+    {
 	    _rb = GetComponent<Rigidbody2D>();
 	    _animator = GetComponent<Animator>();
 	    _sr = GetComponent<SpriteRenderer>();
@@ -49,8 +53,12 @@ public class PlayerController : NetworkBehaviour
         _animator.runtimeAnimatorController = CharacterDetails.AnimatorController;
 	    _health = CharacterDetails.Health;
         _canMove = true;
-        HealthBarBAckground.sizeDelta = new Vector2(_health, HealthBarBAckground.sizeDelta.y);
-	}
+        _isDead = false;
+        HealthBarBackground.sizeDelta = new Vector2(_health, HealthBarBackground.sizeDelta.y);
+
+        if(isLocalPlayer)
+            _spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+    }
 
     public void SetCharacterDetails(Character character)
     {
@@ -77,7 +85,7 @@ public class PlayerController : NetworkBehaviour
 
         _speed = Input.GetKey(KeyCode.LeftShift) ? CharacterDetails.RunSpeed : CharacterDetails.WalkSpeed;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !_isDead)
         {
             _animator.SetTrigger(ANIM_ATTACK);
             _movementDirection = Vector2.zero;
@@ -160,6 +168,39 @@ public class PlayerController : NetworkBehaviour
         if (_health <= 0)
         {
             //TODO RKL: Implement death
+            RpcDie();
         }
+    }
+
+    [ClientRpc]
+    void RpcDie()
+    {
+        _isDead = true;
+        _canMove = false;
+        _animator.SetTrigger(ANIM_DIE);
+    }
+
+    [ClientRpc]
+    void RpcRespawn()
+    {
+        if (!isLocalPlayer) return;
+
+        var spawnPoint = Vector2.zero;
+        if (_spawnPoints != null && _spawnPoints.Length > 0)
+        {
+            spawnPoint = _spawnPoints[Random.Range(0, _spawnPoints.Length)].transform.position;
+        }
+        transform.position = spawnPoint;
+        _canMove = true;
+        _isDead = false;
+        _animator.Play(ANIM_IDLE);
+        CmdResetHealth();
+        
+    }
+
+    [Command]
+    void CmdResetHealth()
+    {
+        _health = CharacterDetails.Health;
     }
 }
